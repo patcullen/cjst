@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+<style>
+	body { margin: 10px 10px 80px 10px; }
+	.ex {
+		border-bottom: 1px solid #ccc;
+		margin: 1em 1em 2em 1em;
+		font-family: Arial;
+	}
+	.ex h2 {
+		font-size: 16px;
+	}
+	.ex h3 {
+		font-size: 12px;
+		margin: 0.5em 0em;
+	}
+	.ex pre {
+		margin: 0.3em 1em 1em 1em;
+        padding: 2px;
+        background-color: #eee;
+        border-radius: 3px;
+	}
+</style>
+</head>
+
+<body>
+
+	<div id="e01" class="ex">
+		<h2>Convert Chinese to Pinyin</h2>
+		<h3>Input</h3>
+		<pre class="in">cjst.chineseToPinyin('恭喜發財').join(' ')</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e02" class="ex">
+		<h2>Convert Chinese to Zhuyin</h2>
+		<h3>Input</h3>
+		<pre class="in">JSON.stringify(cjst.chineseToZhuyin('恭喜發財'))</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e03" class="ex">
+		<h2>Convert Pinyin to Zhuyin</h2>
+		<h3>Input</h3>
+		<pre class="in">JSON.stringify(cjst.pinyinToZhuyin('hóng bāo ná lái'))</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e04" class="ex">
+		<h2>Convert Simplified to Traditional</h2>
+		<h3>Input</h3>
+		<pre class="in">cjst.simplifiedToTraditional('恭喜发财')</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e05" class="ex">
+		<h2>Convert Traditional to Simplified</h2>
+		<h3>Input</h3>
+		<pre class="in">cjst.traditionalToSimplified('恭喜發財')</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e06" class="ex">
+		<h2>Detecting Chinese in strings</h2>
+		<h3>Input</h3>
+		<pre class="in">
+cjst.hasChineseCharacters('Happy New Year!')
+cjst.hasChineseCharacters('恭喜發財')
+		</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e07" class="ex">
+		<h2>Translating Chinese phrases and words to English</h2>
+		<h3>Input</h3>
+		<pre class="in">
+cjst.translatePhrase('恭喜發財', {}, function(response) {
+    console.log( response.translation.join('\n') );
+});
+		</pre>
+		<h3>Output</h3>
+		<pre class="out"></pre>
+	</div>
+
+	<div id="e08" class="ex">
+		<h2>Adding Pinyin character tiles over elements on hover/mouseover.</h2>
+		<h3>Code</h3>
+		<pre class="in">cjst.pinyinTileOnHover( $('#e08 .out') );</pre>
+		<h3>Result</h3>
+		<pre class="out">恭喜發財  <- Hover over these characters</pre>
+	</div>
+
+	<div id="e09" class="ex">
+		<h2>Adding Zhuyin character tiles over elements on hover/mouseover.</h2>
+		<h3>Code</h3>
+		<pre class="in">cjst.zhuyinTileOnHover( $('#e09 .out') );</pre>
+		<h3>Result</h3>
+		<pre class="out">恭喜發財  <- Hover over these characters</pre>
+	</div>
+
+	<div id="e10" class="ex">
+		<h2>Adding Pinyin character titles over elements on hover/mouseover.</h2>
+		<h3>Code</h3>
+		<pre class="in">cjst.pinyinTitleOnHover( $('#e10 .out') );</pre>
+		<h3>Result</h3>
+		<pre class="out">恭喜發財  <- Hover over these characters</pre>
+	</div>
+
+	<div id="e11" class="ex">
+		<h2>Adding Zhuyin character titles over elements on hover/mouseover.</h2>
+		<h3>Code</h3>
+		<pre class="in">cjst.zhuyinTitleOnHover( $('#e11 .out') );</pre>
+		<h3>Result</h3>
+		<pre class="out">恭喜發財  <- Hover over these characters</pre>
+	</div>
+
+</body>
+
+<script type="text/javascript" src="require.js"></script>
+<script>
+
+(function(){
+	require(['../lib/cjst'], function(cjst) {
+
+		$ = function(q) {
+			return document.querySelectorAll(q)[0];
+		};
+
+		// Example 01 - Chinese characters to Pinyin
+		$('#e01 .out').textContent = cjst.chineseToPinyin('恭喜發財').join(' ');
+
+		// Example 02 - Chinese characters to Zhuyin
+		$('#e02 .out').textContent = JSON.stringify(cjst.chineseToZhuyin('恭喜發財'));
+
+		// Example 03 - Pinyin to Zhuyin
+		$('#e03 .out').textContent = JSON.stringify(cjst.pinyinToZhuyin('hóng bāo ná lái'));
+
+		// Example 04 - Simplified to Traditional
+		$('#e04 .out').textContent = cjst.simplifiedToTraditional('恭喜发财');
+
+		// Example 05 - Traditional to Simplified
+		$('#e05 .out').textContent = cjst.traditionalToSimplified('恭喜發財');
+
+		// Example 06 - Detecting Chinese
+		$('#e06 .out').textContent =
+			cjst.hasChineseCharacters('Happy New Year!') + '\n' +
+			cjst.hasChineseCharacters('The phrase 恭喜發財 means Happy New Year.');
+
+		// Example 07 - Translation
+		cjst.setProperty('translationLocation', '../translation/data/'); // tell the library where the json translations reside
+		cjst.translatePhrase('恭喜發財', {}, function(response) {
+			$('#e07 .out').textContent = response.translation.join('\n');
+		});
+
+		// Example 08 - Pinyin Tiles
+		cjst.pinyinTileOnHover($('#e08 .out'));
+
+		// Example 09 - Pinyin Tiles
+		cjst.zhuyinTileOnHover($('#e09 .out'));
+
+		// Example 10 - Pinyin Tiles
+		cjst.pinyinTitleOnHover($('#e10 .out'));
+
+		// Example 11 - Pinyin Tiles
+		cjst.zhuyinTitleOnHover($('#e11 .out'));
+
+	});
+
+})();
+</script>
+
+
+</html>
